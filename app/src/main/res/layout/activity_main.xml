@@ -66,7 +66,7 @@
         android:layout_marginTop="450dp">
 
         <TextView
-            android:id="@+id/text_view"
+            android:id="@+id/tv_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30dp"

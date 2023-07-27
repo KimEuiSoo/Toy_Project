@@ -6,6 +6,7 @@ plugins {
 android {
     namespace 'com.example.toy_project'
     compileSdk 33
+    buildFeatures.viewBinding true
 
     defaultConfig {
         applicationId "com.example.toy_project"
