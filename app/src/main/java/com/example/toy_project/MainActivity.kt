@@ -41,17 +41,22 @@ class MainActivity : AppCompatActivity() {
     fun Register_Click(){
         binding.Btn1.setOnClickListener{
             try{
-                if(Global().Test==1){
-                    personHelper.insertData(
-                        binding.name.text.toString().trim(),
-                        binding.phone.text.toString().trim()
-                    )
+                var document_txt : String = "등록완료"
+                if(binding.name.text.toString().trim()=="" || binding.phone.text.toString().trim()=="") {
+                   document_txt = "등록실패"
                 }
                 else{
+                    if (Global().Test == 1) {
+                        personHelper.insertData(
+                            binding.name.text.toString().trim(),
+                            binding.phone.text.toString().trim()
+                        )
+                    } else {
 
+                    }
                 }
                 reset()
-                Toast.makeText(this@MainActivity, "등록완료", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, document_txt, Toast.LENGTH_SHORT).show()
             }catch (e: Exception){
                 Toast.makeText(this@MainActivity, "등록실패", Toast.LENGTH_LONG).show()
             }
