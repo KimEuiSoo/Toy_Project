@@ -7,7 +7,7 @@ import java.net.URL
 
 class PersonDB: Thread() {
     override fun run(){
-        var url = URL(Global().url)
+        var url = URL(Global().register_url)
         var conn = url.openConnection()
         var input = conn.getInputStream()
         var isr = InputStreamReader(input)

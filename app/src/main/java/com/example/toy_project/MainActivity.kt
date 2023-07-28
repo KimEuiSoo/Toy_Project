@@ -1,14 +1,16 @@
 package com.example.toy_project
 
-import com.example.toy_project.Global
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
+import com.example.toy_project.Model.ResponesData
 import com.example.toy_project.databinding.ActivityMainBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.net.URL
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,7 +54,9 @@ class MainActivity : AppCompatActivity() {
                             binding.phone.text.toString().trim()
                         )
                     } else {
-
+                        val check=NetworkConnect()
+                        if(!check)
+                            document_txt = "등록실패"
                     }
                 }
                 reset()
@@ -82,5 +86,29 @@ class MainActivity : AppCompatActivity() {
             name.setText("")
             phone.setText("")
         }
+    }
+
+    fun NetworkConnect(): Boolean{
+        var check_reg = true
+        try{
+            var url = URL(Global().register_url)
+            val retrofit =  Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            var persondata: PersonData = retrofit.create(PersonData::class.java)
+            persondata.requestRegister(binding.name.text.toString().trim(), binding.phone.text.toString().trim()).enqueue(object: Callback<ResponesData>{
+                override fun onResponse(call: Call<ResponesData>, response: Response<ResponesData>) {
+                }
+
+                override fun onFailure(call: Call<ResponesData>, t: Throwable) {
+                    check_reg=false
+                }
+            })
+        }
+        catch(e: Exception){
+            check_reg=false
+        }
+        return check_reg
     }
 }
