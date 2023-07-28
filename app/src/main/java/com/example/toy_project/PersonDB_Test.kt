@@ -73,7 +73,6 @@ class PersonDB_Test private constructor(context: Context) :
             if (cursor.count != 0) {
                 val stringBuffer = StringBuffer()
                 while (cursor.moveToNext()) {
-                    stringBuffer.append("ID :" + cursor.getInt(0).toString() + "\n")
                     stringBuffer.append("NAME :" + cursor.getString(1) + "\n")
                     stringBuffer.append("PHONE :" + cursor.getString(2) + "\n")
                 }
