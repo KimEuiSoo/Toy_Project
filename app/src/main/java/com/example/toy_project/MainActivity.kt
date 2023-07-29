@@ -2,17 +2,15 @@ package com.example.toy_project
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import com.example.toy_project.Model.ResponesData
+import android.view.MenuItem
 import com.example.toy_project.databinding.ActivityMainBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.net.URL
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+    lateinit var register: Register_Fragment
+    lateinit var confirm: Confirm_Fragment
+    lateinit var bottom: BottomNavigationView
 
     private val binding: ActivityMainBinding by lazy{
         ActivityMainBinding.inflate(layoutInflater)
@@ -26,11 +24,30 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        Register_Click()
-        getAllDb()
+        register = Register_Fragment()
+        confirm = Confirm_Fragment()
+
+        bottom.setOnNavigationItemSelectedListener(this)
+
+        //supportFragmentManager.beginTransaction().replace(R.id.containers, register).commit()
     }
 
-    override fun onDestroy() {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.Register -> {
+                supportFragmentManager.beginTransaction().replace(R.id.containers , register).commitAllowingStateLoss()
+                return true
+            }
+            R.id.Confirm -> {
+                supportFragmentManager.beginTransaction().replace(R.id.containers, confirm).commitAllowingStateLoss()
+                return true
+            }
+        }
+
+        return false
+    }
+
+    /*override fun onDestroy() {
         personHelper.close()
         super.onDestroy()
     }
@@ -65,8 +82,6 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "등록실패", Toast.LENGTH_LONG).show()
             }
         }
-
-
     }
 
     fun getAllDb() {
@@ -110,5 +125,5 @@ class MainActivity : AppCompatActivity() {
             check_reg=false
         }
         return check_reg
-    }
+    }*/
 }
