@@ -9,7 +9,7 @@ import retrofit2.http.POST
 interface PersonData {
 
     @FormUrlEncoded
-    @POST("/")
+    @POST("")
     fun requestRegister(
         @Field("name") name:String,
         @Field("phone") phone:String
