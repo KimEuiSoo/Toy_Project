@@ -2,6 +2,7 @@ package com.example.toy_project
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.example.toy_project.Model.ResponesData
 import com.example.toy_project.databinding.ActivityMainBinding
@@ -99,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             var persondata: PersonData = retrofit.create(PersonData::class.java)
             persondata.requestRegister(binding.name.text.toString().trim(), binding.phone.text.toString().trim()).enqueue(object: Callback<ResponesData>{
                 override fun onResponse(call: Call<ResponesData>, response: Response<ResponesData>) {
+                    Log.d("data", "data")
                 }
 
                 override fun onFailure(call: Call<ResponesData>, t: Throwable) {
